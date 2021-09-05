@@ -12,8 +12,12 @@ Item {
         anchors.centerIn: parent
         text: "Launch a Qt Quick application with environment
 QSG_RHI_PROFILE=1
-QSG_RHI_PROFILE_HOST=(ipaddress)
-(resource memory usage reporting works best with the Vulkan backend)"
+QSG_RHI_PROFILE_HOST=(ip address)
+(resource memory usage reporting works best with the Vulkan backend)
+IP Address(es):
+127.0.0.1 (localhost)
+" + profiler.ipAddresses
+
         font.pointSize: 24
     }
 

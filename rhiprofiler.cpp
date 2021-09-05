@@ -48,6 +48,7 @@
 ****************************************************************************/
 
 #include "rhiprofiler.h"
+#include <QNetworkInterface>
 
 RhiProfiler::RhiProfiler(QObject *parent) : QObject(parent)
 {
@@ -67,6 +68,12 @@ RhiProfiler::RhiProfiler(QObject *parent) : QObject(parent)
 
     if (!m_server.listen(QHostAddress::Any, 30667))
         qFatal("Failed to start server: %s", qPrintable(m_server.errorString()));
+
+    const QHostAddress &localhost = QHostAddress(QHostAddress::LocalHost);
+    for (const QHostAddress &address: QNetworkInterface::allAddresses()) {
+        if (address.protocol() == QAbstractSocket::IPv4Protocol && address != localhost)
+             m_ipAddresses += address.toString() + "\n";
+    }
 }
 
 bool RhiProfiler::connected() const
@@ -334,4 +341,9 @@ int RhiProfiler::totalGpuAllocSize() const
 int RhiProfiler::unusedGpuAllocSize() const
 {
     return m_unusedGpuAllocSize;
+}
+
+const QString &RhiProfiler::ipAddresses() const
+{
+    return m_ipAddresses;
 }

@@ -97,6 +97,8 @@ class RhiProfiler : public QObject
     Q_PROPERTY(int totalGpuAllocSize READ totalGpuAllocSize NOTIFY totalGpuAllocSizeChanged)
     Q_PROPERTY(int unusedGpuAllocSize READ unusedGpuAllocSize NOTIFY unusedGpuAllocSizeChanged)
 
+    // IP Address
+    Q_PROPERTY(QString ipAddresses READ ipAddresses NOTIFY ipAddressesChanged)
 
     QML_ELEMENT
 public:
@@ -128,6 +130,8 @@ public:
     int totalGpuAllocSize() const;
     int unusedGpuAllocSize() const;
 
+    const QString &ipAddresses() const;
+
 signals:
     void connectedChanged();
     void bufferCountChanged();
@@ -154,6 +158,7 @@ signals:
     void subGpuAllocCountChanged();
     void totalGpuAllocSizeChanged();
     void unusedGpuAllocSizeChanged();
+    void ipAddressesChanged();
 
 private slots:
     void handleClientConnected();
@@ -196,6 +201,7 @@ private:
     int m_subGpuAllocCount = 0;
     int m_totalGpuAllocSize = 0;
     int m_unusedGpuAllocSize = 0;
+    QString m_ipAddresses;
 };
 
 #endif // RHIPROFILER_H
